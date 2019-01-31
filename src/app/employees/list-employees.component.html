@@ -1,0 +1,11 @@
+<h3 #h1Variable></h3>
+<div *ngFor="let employee of employees">
+    <!-- <div (click)="h1Variable.innerHTML = childComponent.employee.name + ' '+ childComponent.employee.gender"> -->
+        <div (click)="h1Variable.innerHTML = childComponent.getEmployeeNameandGender()">
+        <app-display-employee [employee]="employee" #childComponent></app-display-employee>
+    </div>
+</div>
+<!-- <button (click)="nextEmployee()" class="btn btn-primary">View Next Employee</button>
+<br/>
+<br/>
+<app-display-employee [employee]="employeeToDisplay"></app-display-employee> -->
