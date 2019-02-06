@@ -14,42 +14,48 @@ import { NgForm } from '@angular/forms';
 
 export class CreateEmployeeComponent implements OnInit {
   @ViewChild('employeeForm') public createEmployeeForm: NgForm;
- previewPhoto;
-bsDatepickerConfig: Partial<BsDatepickerConfig>;
+  previewPhoto;
+  bsDatepickerConfig: Partial<BsDatepickerConfig>;
 
- employee: Employee = {
-   id: null,
-   name: null,
-   gender: null,
-   email: '',
-   phonenumber: null,
-   contactPreference: null,
-   dateofBirth: null,
-   department: 'select',
-   isActive: false,
-   photoPath: null
- };
+  employee: Employee = {
+    id: null,
+    name: null,
+    gender: null,
+    email: '',
+    phonenumber: null,
+    contactPreference: null,
+    dateofBirth: null,
+    department: 'select',
+    isActive: false,
+    photoPath: null
+  };
 
   departments: Department[] = [
-{id: 1 , departmentName: 'HR'},
-{id: 2 , departmentName: 'IT'},
-{id: 3 , departmentName: 'Payroll'},
-{id: 4 , departmentName: 'Help Desk'},
+    { id: 1, departmentName: 'HR' },
+    { id: 2, departmentName: 'IT' },
+    { id: 3, departmentName: 'Payroll' },
+    { id: 4, departmentName: 'Help Desk' },
   ];
-   constructor(private _employeeService: EmployeeService , private _router: Router ) {
-  this.bsDatepickerConfig = Object.assign(
-                {}, { containerClass: 'theme-dark-blue'
-              });
-   }
-   togglePhotoPreview() {
-     this.previewPhoto = !this.previewPhoto;
-   }
+  constructor(private _employeeService: EmployeeService, private _router: Router) {
+    this.bsDatepickerConfig = Object.assign(
+      {}, {
+        containerClass: 'theme-dark-blue'
+      });
+  }
+  togglePhotoPreview() {
+    this.previewPhoto = !this.previewPhoto;
+  }
 
   ngOnInit() {
   }
 
   saveEmployee(): void {
     this._employeeService.save(this.employee);
+    // this._employeeService.reset();
     this._router.navigate(['list']);
+  }
+
+  resetEmployeeForm(): void {
+    // this._employeeService.name = '';
   }
 }
