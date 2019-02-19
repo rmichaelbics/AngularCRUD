@@ -15,8 +15,8 @@ export class EmployeeService {
             department: '3',
             isActive: true,
             photoPath: 'assets/images/Michael.jpg'
-          },
-          {
+        },
+        {
             id: 2,
             name: 'Mary',
             gender: 'Female',
@@ -27,8 +27,8 @@ export class EmployeeService {
             department: '2',
             isActive: true,
             photoPath: 'assets/images/Mary.png'
-          },
-          {
+        },
+        {
             id: 3,
             name: 'John',
             gender: 'Male',
@@ -39,7 +39,7 @@ export class EmployeeService {
             department: '1',
             isActive: true,
             photoPath: 'assets/images/Michael.jpg'
-          },
+        },
     ];
 
     getEmployees(): Employee[] {

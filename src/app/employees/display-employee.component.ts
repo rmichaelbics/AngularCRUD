@@ -1,6 +1,7 @@
 // import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Employee } from '../models/employee.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-display-employee',
@@ -11,28 +12,32 @@ export class DisplayEmployeeComponent implements OnInit {
   @Input() employee: Employee;
 
   // @Output() notify: EventEmitter<Employee> = new EventEmitter<Employee>();
-//   private _employeeId: number;
-// private _employee: Employee;
-// @Input()
-// set employee(val: Employee) {
-//   console.log('Current : ' + val.name);
-//   console.log('Previous : ' + (this._employee ? this._employee.name : 'NULL'));
-//   this._employee = val;
-// }
-// get employee(): Employee {
-//   return this._employee;
-// }
+  //   private _employeeId: number;
+  // private _employee: Employee;
+  // @Input()
+  // set employee(val: Employee) {
+  //   console.log('Current : ' + val.name);
+  //   console.log('Previous : ' + (this._employee ? this._employee.name : 'NULL'));
+  //   this._employee = val;
+  // }
+  // get employee(): Employee {
+  //   return this._employee;
+  // }
 
-// @Input()
-// set employeeId(val: number) {
-//   this.employeeId = val;
-// }
-// get employeeId(): number {
-//   return this.employeeId;
-// }
-  constructor() { }
+  // @Input()
+  // set employeeId(val: number) {
+  //   this.employeeId = val;
+  // }
+  // get employeeId(): number {
+  //   return this.employeeId;
+  // }
+
+  private selectedEmployeeId: number;
+  constructor(private _router: ActivatedRoute) {
+   }
 
   ngOnInit() {
+   this.selectedEmployeeId =  +this._router.snapshot.paramMap.get('id');
   }
 
   // handleClick() {

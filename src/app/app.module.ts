@@ -13,6 +13,7 @@ import { SelectRequiredValidatorDirective } from './shared/SelectRequiredValidat
 import { EmployeeService } from './employees/employee.service';
 import { createEmployeeCanDeactiveGuardService } from './employees/create-employee-can-deactive-guard.service';
 import { EmployeeDetailsComponent } from './employees/employee-details.component';
+import { EmpFilterPipe} from './employees/employee-filter.pipe';
 
 const appRoutes: Routes = [
   {path: 'list', component: ListEmployeesComponent},
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
     CreateEmployeeComponent,
     DisplayEmployeeComponent,
     SelectRequiredValidatorDirective,
-    EmployeeDetailsComponent
+    EmployeeDetailsComponent,
+    EmpFilterPipe
   ],
   imports: [
     BrowserModule,
