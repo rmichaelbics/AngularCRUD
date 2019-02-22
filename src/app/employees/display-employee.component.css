@@ -6,3 +6,8 @@
     width: 200px;
     height: 200px;
 }
+
+button.btn {
+    width: 70px;
+    margin: 2px;
+}

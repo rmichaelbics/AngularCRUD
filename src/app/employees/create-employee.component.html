@@ -1,7 +1,7 @@
 <form #employeeForm="ngForm" ngNativeValidate (ngSubmit)="saveEmployee()">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">Create Employee</h3>
+      <h3 class="panel-title">{{panelTitle}}</h3>
     </div>
     <div class="panel-body">
       <div class="form-group" [class.has-error]="name.invalid && name.touched" [class.has-success]="name.valid">
@@ -14,9 +14,9 @@
         [class.has-success]="contactPreference.valid">
         <label [class.control-label]="contactPreference.invalid && contactPreference.touched">Contact Preference</label>
         <div class="form-control">
-          <label class="radio-inline"><input type="radio" required #contactPreference="ngModel" value="email" name="contactPreference"
+          <label class="radio-inline"><input type="radio" required #contactPreference="ngModel" value="Email" name="contactPreference"
               [(ngModel)]="employee.contactPreference" />Email</label>
-          <label class="radio-inline"><input type="radio" required #contactPreference="ngModel" value="phone" name="contactPreference"
+          <label class="radio-inline"><input type="radio" required #contactPreference="ngModel" value="Phone" name="contactPreference"
               [(ngModel)]="employee.contactPreference" />Phone</label>
         </div>
         <span class="help-block" *ngIf="contactPreference.invalid && contactPreference.touched">Contact Preference is
@@ -27,14 +27,14 @@
         <label for="email" [class.control-label]="email.invalid ">Email</label>
         <!-- <input type="text" required [email]="employee.email!==''" id="email" [(ngModel)]="employee.email" name="email" class="form-control" #email="ngModel"/> -->
         <!-- <input type="text" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" id="email" [(ngModel)]="employee.email" name="email" class="form-control" #email="ngModel"/> -->
-        <input type="text" [required]="contactPreference.value=='email' " pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(gmail)\.com$"
+        <input type="text" [required]="contactPreference.value=='Email' " pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(gmail)\.com$"
           id="email" [(ngModel)]="employee.email" name="email" class="form-control" #email="ngModel" />
         <span class="help-block" *ngIf="email.errors?.required ">Email is required</span>
         <span class="help-block" *ngIf="email.errors?.pattern">Email is invalid</span>
       </div>
       <div class="form-group" [class.has-error]="phonenumber.invalid " [class.has-success]="phonenumber.valid">
         <label for="phonenumber" [class.control-label]="phonenumber.invalid ">Phone Number</label>
-        <input type="text" id="phonenumber" [required]="contactPreference.value=='phone' " [(ngModel)]="employee.phonenumber"
+        <input type="text" id="phonenumber" [required]="contactPreference.value=='Phone' " [(ngModel)]="employee.phonenumber"
           name="phonenumber" class="form-control" #phonenumber="ngModel" />
         <span class="help-block" *ngIf="phonenumber.errors?.required ">Phone Number is required</span>
       </div>
@@ -42,9 +42,9 @@
       <div class="form-group" [class.has-error]="gender.invalid && gender.touched" [class.has-success]="gender.valid">
         <label [class.control-label]="gender.invalid && gender.touched">Gender</label>
         <div class="form-control">
-          <label class="radio-inline"><input type="radio" required #gender="ngModel" value="male" name="gender"
+          <label class="radio-inline"><input type="radio" required #gender="ngModel" value="Male" name="gender"
               [(ngModel)]="employee.gender" />Male</label>
-          <label class="radio-inline"><input type="radio" required #gender="ngModel" value="female" name="gender"
+          <label class="radio-inline"><input type="radio" required #gender="ngModel" value="Female" name="gender"
               [(ngModel)]="employee.gender" />Female</label>
         </div>
         <span class="help-block" *ngIf="gender.invalid && gender.touched">Gender is required</span>
@@ -79,12 +79,12 @@
         <input type="text" required id="photoPath" [(ngModel)]="employee.photoPath" name="photoPath" class="form-control" />
       </div>
       <div class="form-group">
-        <button type="button" class="btn btn-primary" (click)="togglePhotoPreview()">
+        <button type="button" class="btn btn-primary" (click)="togglePhotoPreview()" *ngIf="employee.photoPath !== '' && employee.photoPath !== null">
           {{previewPhoto? "Hide": "Show"}} Preview</button>
         <!-- <input type="button" id="btnPreview"  value="Show Preview" class="btn btn-primary" (click)="togglePhotoPreview()" /> -->
       </div>
       <div class="form-group">
-        <img [src]="employee.photoPath" height="200" width="200" *ngIf="previewPhoto" />
+        <img [src]="employee.photoPath" height="200" width="200" *ngIf="previewPhoto && employee.photoPath !== '' && employee.photoPath !== null" />
       </div>
 
 

@@ -1,8 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee.model';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
+import { catchError} from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 @Injectable()
 export class EmployeeService {
 
+    constructor( private _httpClient: HttpClient) {
+    }
+    baseUrl = 'http://localhost:3000/employees';
     private listEmployees: Employee[] = [
         {
             id: 1,
@@ -42,15 +55,46 @@ export class EmployeeService {
         },
     ];
 
-    getEmployees(): Employee[] {
-        return this.listEmployees;
+    getEmployees(): Observable<Employee[]> {
+      return  this._httpClient.get<Employee[]>('http://localhost:3000/employees');
     }
-    getEmployee(employeeId: number): Employee {
-        return this.listEmployees.find(e => e.id === employeeId);
+    getEmployee(employeeId: number): Observable<Employee> {
+        return this._httpClient.get<Employee>(`${this.baseUrl}/${employeeId}`);
     }
-    save(employee: Employee) {
-        this.listEmployees.push(employee);
+    addEmployee(employee: Employee): Observable<Employee> {
+            return this._httpClient.post<Employee>(this.baseUrl, employee, {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json'
+                })
+            });
+    }
 
+    updateEmployee(employee: Employee): Observable<void> {
+        return this._httpClient.put<void>(`${this.baseUrl}/${employee.id}`, employee, {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json'
+                })
+        });
     }
+
+    deleteEmployee(id: number): Observable<void> {
+        return this._httpClient.delete<void>(`${this.baseUrl}/${id}`);
+    }
+
+    private handleError(errorResponse: HttpErrorResponse) {
+        if (errorResponse.error instanceof ErrorEvent) {
+            console.error('Client Side Error' + errorResponse.error.message);
+        } else {
+            console.error('Server Side Error' + errorResponse);
+        }
+    }
+
+    // deleteEmployee(id: number) {
+    //   const deleteId = +this.listEmployees.findIndex(e => e.id === id);
+    //   if (deleteId !== -1) {
+    //     this.listEmployees.splice(deleteId, 1);
+    //   }
+    // }
 }
+
 

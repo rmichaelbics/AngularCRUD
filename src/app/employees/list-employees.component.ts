@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Employee } from '../models/employee.model';
-import { EmployeeService } from './employee.service';
-import { Router , ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './list-employees.component.html',
@@ -23,17 +22,30 @@ export class ListEmployeesComponent implements OnInit {
     this._searchTerm = value;
     this.filteredEmployee = this.filterEmployee(value);
   }
-  constructor(private _employeeService: EmployeeService, private _router: Router, private _activatedRouter: ActivatedRoute) { }
+  constructor(private _router: Router,
+    private _activatedRouter: ActivatedRoute) {
+
+      this.employees = this._activatedRouter.snapshot.data['employeelist'];
+      this._activatedRouter.queryParamMap.subscribe(params => {
+        if (params.has('searchTerm')) {
+          this.searchTerm = params.get('searchTerm');
+        } else {
+          this.filteredEmployee = this.employees;
+          console.log(this.employees.length);
+        }
+      });
+  }
 
   ngOnInit() {
-    this.employees = this._employeeService.getEmployees();
-    this.filteredEmployee = this.employees;
+    // this.filteredEmployee = this.employees;
     // this.employeeToDisplay = this.employees[0];
   }
 
-  onClick(employeeId: number) {
-    this._router.navigate(['/employees', employeeId]);
-  }
+  // onClick(employeeId: number) {
+  //   this._router.navigate(['/employees', employeeId], {
+  //     queryParams: { 'searchTerm': this.searchTerm, 'testParam': 'testValue' }
+  //   });
+  // }
 
   filterEmployee(filterEmp: string) {
     console.log(filterEmp);
@@ -41,6 +53,12 @@ export class ListEmployeesComponent implements OnInit {
     return this.employees.filter(emp => emp.name.toLocaleLowerCase().indexOf(filterEmp.toLocaleLowerCase()) !== -1);
   }
 
+  onDeleteNotification(id: number) {
+    const deleteId = +this.filteredEmployee.findIndex(e => e.id === id);
+    if (deleteId !== -1) {
+      this.filteredEmployee.splice(deleteId, 1);
+    }
+  }
   changeEmployeeName() {
     // this.employees[0].name = 'Anthony';
     const newEmployeeArray: Employee[] = Object.assign([], this.employees);

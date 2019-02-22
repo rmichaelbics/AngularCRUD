@@ -19,7 +19,7 @@ export class EmployeeDetailsComponent implements OnInit {
   ngOnInit() {
     this._route.paramMap.subscribe(params => {
       this._id = +params.get('id');
-      this.employee = this._employeeService.getEmployee(this._id);
+      // this.employee = this._employeeService.getEmployee(this._id);
     });
     // this._id = +this._route.snapshot.params['id'];
   }
@@ -31,6 +31,6 @@ export class EmployeeDetailsComponent implements OnInit {
       this._id = 1;
     }
     // this._id = this._id + 1 ;
-    this._router.navigate(['/employees', this._id]);
+    this._router.navigate(['/employees', this._id], {queryParamsHandling: 'preserve'});
   }
 }

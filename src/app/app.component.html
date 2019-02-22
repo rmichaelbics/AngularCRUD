@@ -5,12 +5,23 @@
                 <a routerLink="list">List</a>
             </li>
             <li>
-                <a routerLink="create">Create</a>
+                <a routerLink="edit/0">Create</a>
             </li>
             <li>
                 <a href="https://www.google.com/">Google.Com</a>
             </li>
         </ul>
     </nav>
+
+    <div class="lds-roller" *ngIf="showLoadingIndicator">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
     <router-outlet></router-outlet>
 </div>
